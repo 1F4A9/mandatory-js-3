@@ -1,0 +1,51 @@
+* {
+    margin: 0 auto;
+}
+
+.img-container {
+    height: 300px;
+    width: 900px;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-container > img {
+    margin: 5px;
+    width: 32%;
+    height: 100%;
+    border-radius: 6px;
+    box-shadow: 3px 3px 13px -2px rgba(0,0,0,0.75);
+}
+
+header {
+    text-align: center;
+}
+
+header > i {
+    border: 1px solid green;
+    background-color: rgb(105, 201, 105);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+main > select {
+    margin-top: 20px;
+}
+
+#img-dog {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+h1 {
+    font-family: 'Sofia', cursive;
+}
