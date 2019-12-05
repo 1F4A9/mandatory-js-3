@@ -1,30 +1,10 @@
-// Labb 3
-
-// Startsida
-// - Tre random bilder på hundar
-// - Refresh-knapp för bilderna
-// - Lista med alla hundraser som går att klicka på och därmed komma till en ny sub-page
-
-// Ras-sida
-// - Tre bilder på denna ras
-// - Refresh-knapp för bilderna
-// - Lista med alla underraser för denna ras som går att klicka på och därmed komma till en ny sub-page.
-// - Rubrik som säger vilken ras detta är
-
-// Underras-sida
-// - Tre bilder på denna underras
-// - Refresh-knapp för bilderna
-// - Rubrik som säger vilken ras detta är
-
-// Alla sidor
-// - URL-identifier
-
 let breedHash = window.location.hash.substr(1);
 
 if (window.location.hash === '') {
     getRandomImg();
 } else if (window.location.hash.includes('-')) {
     breedHash = breedHash.split('-')
+    renderSubBreed(breedHash[0])
     getSubImg(breedHash[1])
 }
 else if (window.location.hash !== '') {
@@ -35,6 +15,7 @@ axios.get('https://dog.ceo/api/breeds/list/all')
     .then((response) => response.data.message)
     .then((data) => renderOptions(data))
 
+
 // RENDER OPTIONS IN SELECT
 function renderOptions(data) {
     for (let dogs in data) {
@@ -43,10 +24,16 @@ function renderOptions(data) {
 
         option.textContent = dogs;
         select.appendChild(option);
+
+        let windowHash = window.location.hash.split('-');
+        if (windowHash[0].substr(1) === dogs) {
+            option.selected = true;
+        }
     }
 }
 
 document.querySelector('#select-breed').addEventListener('change', function () {
+    document.querySelector('#select-breed').selected = this.value;
     getBreeds(this.value)
 })
 
@@ -96,17 +83,25 @@ function renderSubBreed(breed) {
     axios.get('https://dog.ceo/api/breed/' + breed + '/list')
         .then((response) => (response.data.message))
         .then((data) => renderSubOptions(data))
-    // .then(renderSubImg(breed));
 }
 
 // RENDER OPTIONS SUB-BREEDS 
 function renderSubOptions(data) {
     const select = document.querySelector('#select-sub-bread');
     select.textContent = '';
+    const opt = document.createElement('OPTION');
+    opt.textContent = '--- Select sub-breed ---';
+    select.appendChild(opt)
+    select.options[0].disabled = true;
     data.forEach(subBreeds => {
         const option = document.createElement('OPTION');
         option.textContent = subBreeds;
         select.appendChild(option);
+
+        let windowHash = window.location.hash.split('-');
+        if (subBreeds === windowHash[1]) {
+            option.selected = true;
+        }
     });
 }
 
