@@ -89,20 +89,25 @@ function renderSubBreed(breed) {
 function renderSubOptions(data) {
     const select = document.querySelector('#select-sub-bread');
     select.textContent = '';
-    const opt = document.createElement('OPTION');
-    opt.textContent = '--- Select sub-breed ---';
-    select.appendChild(opt)
-    select.options[0].disabled = true;
-    data.forEach(subBreeds => {
-        const option = document.createElement('OPTION');
-        option.textContent = subBreeds;
-        select.appendChild(option);
+    if (data.length !== 0) {
+        select.style.display = 'block'
+        const opt = document.createElement('OPTION');
+        opt.textContent = '--- Select sub-breed ---';
+        select.appendChild(opt)
+        select.options[0].disabled = true;
+        data.forEach(subBreeds => {
+            const option = document.createElement('OPTION');
+            option.textContent = subBreeds;
+            select.appendChild(option);
 
-        let windowHash = window.location.hash.split('-');
-        if (subBreeds === windowHash[1]) {
-            option.selected = true;
-        }
-    });
+            let windowHash = window.location.hash.split('-');
+            if (subBreeds === windowHash[1]) {
+                option.selected = true;
+            }
+        });
+    } else {
+        select.style.display = 'none'
+    }
 }
 
 document.querySelector('#select-sub-bread').addEventListener('change', function () {

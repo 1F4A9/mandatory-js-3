@@ -49,3 +49,7 @@ h1,
 h3 {
     font-family: 'Sofia', cursive;
 }
+
+#select-sub-bread {
+    display: none;
+}
